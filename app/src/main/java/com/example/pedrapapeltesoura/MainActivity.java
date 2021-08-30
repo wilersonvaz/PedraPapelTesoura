@@ -11,13 +11,16 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
     private ImageButton pedra, tesoura, papel;
     private ImageView imagem;
     private TextView textoResultado;
     private Drawable drawable;
     private RadioButton idJogador, idJogador2;
-
+    private int j = 1;
+    private String resultado = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,21 +37,36 @@ public class MainActivity extends AppCompatActivity {
         pedra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                jogar(1);
+                if(idJogador2.isChecked()){
+                    j = 2;
+                    jogarContra2(0,j);
+                }else{
+                    jogar(0,j);
+                }
             }
         });
 
         tesoura.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                jogar(2);
+                if(idJogador2.isChecked()){
+                    j = 2;
+                    jogarContra2(1,j);
+                }else{
+                    jogar(1,j);
+                }
             }
         });
 
         papel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                jogar(3);
+                if(idJogador2.isChecked()){
+                    j = 2;
+                    jogarContra2(2,j);
+                }else{
+                    jogar(2,j);
+                }
             }
         });
 
@@ -71,30 +89,108 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void jogar(int par) {
+    private void jogar(int par, int j) {
         try {
+            resultado = "";
+
+            Random jogo = new Random();
+            int valor = jogo.nextInt(3);
 
             switch (par){
-               case 1:
-                   drawable = getResources().getDrawable(R.drawable.chico);
-                   imagem.setImageDrawable(drawable);
-                   textoResultado.setText("O Chiquinho venceu!");
-                   break;
-               case 2:
-                   drawable= getResources().getDrawable(R.drawable.maria);
-                   imagem.setImageDrawable(drawable);
-                   textoResultado.setText("A Mariazinha venceu!");
-                   break;
-               case 3:
-                   drawable= getResources().getDrawable(R.drawable.cave_man);
-                   imagem.setImageDrawable(drawable);
-                   textoResultado.setText("Você venceu!");
-                   break;
+                case 0:
+                    switch (valor){
+                        case 0:
+                            drawable = getResources().getDrawable(R.drawable.cave_man_empate);
+                            resultado+="Empate! O Chiquinho também escolheu pedra!";
+                            break;
+                        case 1:
+                            drawable = getResources().getDrawable(R.drawable.cave_man_feliz);
+                            resultado+="Você venceu! O Chiqinho escolheu tesoura!";
+                            break;
+                        case 2:
+                            drawable = getResources().getDrawable(R.drawable.chico);
+                            resultado+="O Chiquinho escolheu papel e venceu!";
+                            break;
+                    }
+                    break;
 
+                case 1:
 
-           }
+                    switch (valor){
+                        case 0:
+                            drawable = getResources().getDrawable(R.drawable.chico);
+                            resultado+="O chiquinho escolheu pedra e venceu!";
+                            break;
+
+                        case 1:
+                            drawable = getResources().getDrawable(R.drawable.cave_man_empate);
+                            resultado+="Empate! O Chiquinho também escolheu tesoura!";
+                            break;
+                        case 2:
+                            drawable = getResources().getDrawable(R.drawable.cave_man_feliz);
+                            resultado+="Você venceu! O Chiquinho escolheu papel!";
+                            break;
+                    }
+                    break;
+
+                case 2:
+                    switch (valor){
+                        case 0:
+                            drawable = getResources().getDrawable(R.drawable.cave_man_feliz);
+                            resultado+="Você venceu! O Chiquinho escolheu pedra!";
+                            break;
+                        case 1:
+                            drawable = getResources().getDrawable(R.drawable.chico);
+                            resultado+="O Chiquinho escolheu tesoura e venceu!";
+                            break;
+                        case 2:
+                            drawable = getResources().getDrawable(R.drawable.cave_man_empate);
+                            resultado+="Empate! O Chiquinho também escolheu papel!";
+                            break;
+                    }
+                    break;
+
+            }
+
+            imagem.setImageDrawable(drawable);
+            textoResultado.setText(resultado);
+
         }catch (Exception e){
             System.out.println("Erro: "+e);
         }
     }
+
+
+    private void jogarContra2(int par, int j){
+
+        try {
+            resultado="";
+            switch (par){
+                case 0:
+                    drawable = getResources().getDrawable(R.drawable.chico);
+                    imagem.setImageDrawable(drawable);
+                    resultado+="O Chiquinho venceu!";
+                    break;
+                case 1:
+                    drawable= getResources().getDrawable(R.drawable.maria);
+                    imagem.setImageDrawable(drawable);
+                    resultado+="A Mariazinha venceu!";
+                    break;
+                case 2:
+                    drawable= getResources().getDrawable(R.drawable.cave_man_feliz);
+                    imagem.setImageDrawable(drawable);
+                    resultado+="Você venceu!";
+                    break;
+
+            }
+
+            textoResultado.setText(resultado);
+
+        }catch (Exception e){
+            System.out.println("Erro: "+e);
+        }
+
+    }
+
+
 }
