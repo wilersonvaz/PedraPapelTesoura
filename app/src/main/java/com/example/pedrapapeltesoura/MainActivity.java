@@ -101,14 +101,14 @@ public class MainActivity extends AppCompatActivity {
                     switch (valor){
                         case 0:
                             drawable = getResources().getDrawable(R.drawable.cave_man_empate);
-                            resultado+="Empate! O Chiquinho também escolheu pedra!";
+                            resultado+="Empate!\n O Chiquinho também escolheu pedra!";
                             break;
                         case 1:
                             drawable = getResources().getDrawable(R.drawable.cave_man_feliz);
-                            resultado+="Você venceu! O Chiqinho escolheu tesoura!";
+                            resultado+="Você venceu!\n O Chiqinho escolheu tesoura!";
                             break;
                         case 2:
-                            drawable = getResources().getDrawable(R.drawable.chico);
+                            drawable = getResources().getDrawable(R.drawable.cave_man_bravo);
                             resultado+="O Chiquinho escolheu papel e venceu!";
                             break;
                     }
@@ -118,17 +118,17 @@ public class MainActivity extends AppCompatActivity {
 
                     switch (valor){
                         case 0:
-                            drawable = getResources().getDrawable(R.drawable.chico);
+                            drawable = getResources().getDrawable(R.drawable.cave_man_bravo);
                             resultado+="O chiquinho escolheu pedra e venceu!";
                             break;
 
                         case 1:
                             drawable = getResources().getDrawable(R.drawable.cave_man_empate);
-                            resultado+="Empate! O Chiquinho também escolheu tesoura!";
+                            resultado+="Empate!\n O Chiquinho também escolheu tesoura!";
                             break;
                         case 2:
                             drawable = getResources().getDrawable(R.drawable.cave_man_feliz);
-                            resultado+="Você venceu! O Chiquinho escolheu papel!";
+                            resultado+="Você venceu!\n O Chiquinho escolheu papel!";
                             break;
                     }
                     break;
@@ -137,15 +137,15 @@ public class MainActivity extends AppCompatActivity {
                     switch (valor){
                         case 0:
                             drawable = getResources().getDrawable(R.drawable.cave_man_feliz);
-                            resultado+="Você venceu! O Chiquinho escolheu pedra!";
+                            resultado+="Você venceu!\n O Chiquinho escolheu pedra!";
                             break;
                         case 1:
-                            drawable = getResources().getDrawable(R.drawable.chico);
+                            drawable = getResources().getDrawable(R.drawable.cave_man_bravo);
                             resultado+="O Chiquinho escolheu tesoura e venceu!";
                             break;
                         case 2:
                             drawable = getResources().getDrawable(R.drawable.cave_man_empate);
-                            resultado+="Empate! O Chiquinho também escolheu papel!";
+                            resultado+="Empate!\n O Chiquinho também escolheu papel!";
                             break;
                     }
                     break;
@@ -165,21 +165,216 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             resultado="";
+
+            Random jogo = new Random();
+            int chiquinho = jogo.nextInt(3);
+            int mariazinha = jogo.nextInt(3);
+
+
             switch (par){
                 case 0:
-                    drawable = getResources().getDrawable(R.drawable.chico);
-                    imagem.setImageDrawable(drawable);
-                    resultado+="O Chiquinho venceu!";
+
+                    switch (chiquinho){
+                        case 0:
+
+                            switch (mariazinha){
+                                case 0:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu pedra\nChiquinho escolheu pedra\nMariazinha escolheu pedra\nEmpate!";
+                                    break;
+                                case 1:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu pedra\nChiquinho escolheu pedra\nMariazinha escolheu tesoura\nEmpate com o Chiquinho!";
+                                    break;
+                                case 2:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu pedra\nChiquinho escolheu pedra\nMariazinha escolheu pedra!\nEmpate!";
+                                    break;
+                            }
+
+                            break;
+
+                        case 1:
+
+                            switch (mariazinha){
+                                case 0:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu pedra\nChiquinho escolheu tesoura\nMariazinha escolheu pedra\nEmpate com a Mariazinha!";
+                                    break;
+                                case 1:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_feliz);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu pedra\nChiquinho escolheu tesoura\nMariazinha escolheu tesoura\nVocê venceu!";
+                                    break;
+                                case 2:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu pedra\nChiquinho escolheu tesoura\nMariazinha escolheu papel\nEmpate!";
+                                    break;
+                            }
+                            break;
+
+                        case 2:
+
+                            switch (mariazinha){
+                                case 0:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_bravo);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu pedra\nChiquinho escolheu papel\nMariazinha escolheu pedra\nVocê perdeu!";
+                                    break;
+                                case 1:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu pedra\nChiquinho escolheu papel\nMariazinha escolheu tesoura\nEmpate!";
+                                    break;
+                                case 2:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_bravo);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu pedra\nChiquinho escolheu papel\nMariazinha escolheu papel\nVocê perdeu!";
+                                    break;
+                            }
+                            break;
+
+                    }
+
                     break;
+
                 case 1:
-                    drawable= getResources().getDrawable(R.drawable.maria);
-                    imagem.setImageDrawable(drawable);
-                    resultado+="A Mariazinha venceu!";
+
+                    switch (chiquinho){
+                        case 0:
+
+                            switch (mariazinha){
+                                case 0:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_bravo);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu tesoura\nChiquinho escolheu pedra\nMariazinha escolheu pedra\nVocê perdeu!";
+                                    break;
+                                case 1:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_bravo);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu tesoura\nChiquinho escolheu pedra\nMariazinha escolheu tesoura\nVocê perdeu!";
+                                    break;
+                                case 2:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu tesoura\nChiquinho escolheu pedra\nMariazinha escolheu papel\nEmpate!";
+                                    break;
+                            }
+                            break;
+
+                        case 1:
+                            switch (mariazinha){
+                                case 0:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_bravo);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu tesoura\nChiquinho escolheu tesoura\nMariazinha escolheu pedra\nVocê perdeu!";
+                                    break;
+                                case 1:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu tesoura\nChiquinho escolheu tesoura\nMariazinha escolheu tesoura\nEmpate!";
+                                    break;
+                                case 2:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu tesoura\nChiquinho escolheu tesoura\nMariazinha escolheu papel\nEmpate com o Chiquinho!";
+                                    break;
+                            }
+                            break;
+
+                        case 2:
+                            switch (mariazinha){
+                                case 0:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu tesoura\nChiquinho escolheu papel\nMariazinha escolheu pedra\nEmpate!";
+                                    break;
+                                case 1:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu tesoura\nChiquinho escolheu papel\nMariazinha escolheu tesoura\nEmpate com a Mariazinha!";
+                                    break;
+                                case 2:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_feliz);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu tesoura\nChiquinho escolheu papel\nMariazinha escolheu papel\nVocê venceu!";
+                                    break;
+                            }
+                            break;
+                    }
                     break;
                 case 2:
-                    drawable= getResources().getDrawable(R.drawable.cave_man_feliz);
-                    imagem.setImageDrawable(drawable);
-                    resultado+="Você venceu!";
+
+                    switch (chiquinho){
+                        case 0:
+
+                            switch (mariazinha){
+                                case 0:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_feliz);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu papel\nChiquinho escolheu pedra\nMariazinha escolheu pedra\nVocê venceu!";
+                                    break;
+                                case 1:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu papel\nChiquinho escolheu pedra\nMariazinha escolheu tesoura\nEmpate";
+                                    break;
+                                case 2:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu papel\nChiquinho escolheu pedra\nMariazinha escolheu papel\nEmpate com a Chiquinha!";
+                                    break;
+                            }
+                            break;
+                        case 1:
+
+                            switch (mariazinha){
+                                case 0:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu papel\nChiquinho escolheu tesoura\nMariazinha escolheu pedra\nEmpate!";
+                                    break;
+                                case 1:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_bravo);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu papel\nChiquinho escolheu tesoura\nMariazinha escolheu tesoura\nVocê perdeu!";
+                                    break;
+                                case 2:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_bravo);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu papel\nChiquinho escolheu tesoura\nMariazinha escolheu papel\nVocê perdeu!";
+                                    break;
+                            }
+                            break;
+
+                        case 2:
+
+                            switch (mariazinha){
+                                case 0:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu papel\nChiquinho escolheu papel\nMariazinha escolheu pedra\nEmpate com o Chiquinho!";
+                                    break;
+                                case 1:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu papel\nChiquinho escolheu papel\nMariazinha escolheu papel\nEmpate!";
+                                    break;
+                                case 2:
+                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
+                                    imagem.setImageDrawable(drawable);
+                                    resultado+="Você escolheu papel\nChiquinho escolheu papel\nMariazinha escolheu papel\nEmpate!";
+                                    break;
+                            }
+
+                            break;
+                    }
+
                     break;
 
             }
