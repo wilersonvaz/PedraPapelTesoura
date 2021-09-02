@@ -15,11 +15,11 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     private ImageButton pedra, tesoura, papel;
-    private ImageView imagem;
+    private ImageView imagem, chiquinhoImg, mariazinhaImg;
     private TextView textoResultado;
     private Drawable drawable;
     private RadioButton idJogador, idJogador2;
-    private int j = 1;
+    private int qtdJog = 1;
     private String resultado = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         tesoura = (ImageButton) findViewById(R.id.tesoura);
         papel = (ImageButton) findViewById(R.id.papel);
         imagem = (ImageView) findViewById(R.id.resultado);
+        chiquinhoImg = (ImageView) findViewById(R.id.chiquinho);
+        mariazinhaImg = (ImageView) findViewById(R.id.mariazinha);
         textoResultado = (TextView) findViewById(R.id.textoResultado);
         idJogador = (RadioButton) findViewById(R.id.idJogador);
         idJogador2 = (RadioButton) findViewById(R.id.idJogador2);
@@ -38,10 +40,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(idJogador2.isChecked()){
-                    j = 2;
-                    jogarContra2(0,j);
+                    qtdJog = 2;
+                    jogarContra2(0);
                 }else{
-                    jogar(0,j);
+                    jogar(0);
                 }
             }
         });
@@ -50,10 +52,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(idJogador2.isChecked()){
-                    j = 2;
-                    jogarContra2(1,j);
+                    qtdJog = 2;
+                    jogarContra2(1);
                 }else{
-                    jogar(1,j);
+                    jogar(1);
                 }
             }
         });
@@ -62,10 +64,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(idJogador2.isChecked()){
-                    j = 2;
-                    jogarContra2(2,j);
+                    qtdJog = 2;
+                    jogarContra2(2);
                 }else{
-                    jogar(2,j);
+                    jogar(2);
                 }
             }
         });
@@ -73,8 +75,9 @@ public class MainActivity extends AppCompatActivity {
         idJogador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drawable = getResources().getDrawable(R.drawable.cave_man);
-                imagem.setImageDrawable(drawable);
+                mudaImagem(chiquinhoImg, 5);
+                mudaImagem(mariazinhaImg, 6);
+                mudaImagem(imagem, 0);
                 textoResultado.setText("");
             }
         });
@@ -82,16 +85,42 @@ public class MainActivity extends AppCompatActivity {
         idJogador2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drawable = getResources().getDrawable(R.drawable.cave_man_in_love);
-                imagem.setImageDrawable(drawable);
+                mudaImagem(chiquinhoImg, 5);
+                mudaImagem(mariazinhaImg, 6);
+                mudaImagem(imagem, 3);
                 textoResultado.setText("");
             }
         });
     }
 
-    private void jogar(int par, int j) {
+    private void mudaImagem(ImageView image, int img){
+        try{
+            int[] imagensIds = {
+
+                    R.drawable.cave_man, //0
+                    R.drawable.cave_man_feliz, //1
+                    R.drawable.cave_man_bravo, //2
+                    R.drawable.cave_man_in_love, //3
+                    R.drawable.cave_man_empate, //4
+                    R.drawable.chico, //5
+                    R.drawable.maria, //6
+                    R.drawable.pedra_big, //7
+                    R.drawable.papel_big, //8
+                    R.drawable.tesoura_big, //9
+                    R.drawable.exclamation //10
+            };
+
+            image.setImageResource(imagensIds[img]);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    private void jogar(int par) {
         try {
             resultado = "";
+
+            mudaImagem(mariazinhaImg, 10);
 
             Random jogo = new Random();
             int valor = jogo.nextInt(3);
@@ -100,16 +129,19 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     switch (valor){
                         case 0:
-                            drawable = getResources().getDrawable(R.drawable.cave_man_empate);
-                            resultado+="Empate!\n O Chiquinho também escolheu pedra!";
+                            mudaImagem(chiquinhoImg, 7);
+                            mudaImagem(imagem, 4);
+                            resultado = "Empate!";
                             break;
                         case 1:
-                            drawable = getResources().getDrawable(R.drawable.cave_man_feliz);
-                            resultado+="Você venceu!\n O Chiqinho escolheu tesoura!";
+                            mudaImagem(chiquinhoImg, 9);
+                            mudaImagem(imagem, 1);
+                            resultado = "Você venceu!";
                             break;
                         case 2:
-                            drawable = getResources().getDrawable(R.drawable.cave_man_bravo);
-                            resultado+="O Chiquinho escolheu papel e venceu!";
+                            mudaImagem(chiquinhoImg, 8);
+                            mudaImagem(imagem, 2);
+                            resultado = "Você perdeu!";
                             break;
                     }
                     break;
@@ -118,17 +150,20 @@ public class MainActivity extends AppCompatActivity {
 
                     switch (valor){
                         case 0:
-                            drawable = getResources().getDrawable(R.drawable.cave_man_bravo);
-                            resultado+="O chiquinho escolheu pedra e venceu!";
+                            mudaImagem(chiquinhoImg, 7);
+                            mudaImagem(imagem, 2);
+                            resultado ="Você perdeu!";
                             break;
 
                         case 1:
-                            drawable = getResources().getDrawable(R.drawable.cave_man_empate);
-                            resultado+="Empate!\n O Chiquinho também escolheu tesoura!";
+                            mudaImagem(chiquinhoImg, 9);
+                            mudaImagem(imagem, 4);
+                            resultado = "Empate!";
                             break;
                         case 2:
-                            drawable = getResources().getDrawable(R.drawable.cave_man_feliz);
-                            resultado+="Você venceu!\n O Chiquinho escolheu papel!";
+                            mudaImagem(chiquinhoImg, 8);
+                            mudaImagem(imagem, 1);
+                            resultado = "Você venceu!";
                             break;
                     }
                     break;
@@ -136,23 +171,25 @@ public class MainActivity extends AppCompatActivity {
                 case 2:
                     switch (valor){
                         case 0:
-                            drawable = getResources().getDrawable(R.drawable.cave_man_feliz);
-                            resultado+="Você venceu!\n O Chiquinho escolheu pedra!";
+                            mudaImagem(chiquinhoImg, 7);
+                            mudaImagem(imagem, 1);
+                            resultado = "Você venceu!";
                             break;
                         case 1:
-                            drawable = getResources().getDrawable(R.drawable.cave_man_bravo);
-                            resultado+="O Chiquinho escolheu tesoura e venceu!";
+                            mudaImagem(chiquinhoImg, 9);
+                            mudaImagem(imagem, 2);
+                            resultado = "Você perdeu!";
                             break;
                         case 2:
-                            drawable = getResources().getDrawable(R.drawable.cave_man_empate);
-                            resultado+="Empate!\n O Chiquinho também escolheu papel!";
+                            mudaImagem(chiquinhoImg, 8);
+                            mudaImagem(imagem, 4);
+                            resultado = "Empate!";
                             break;
                     }
                     break;
 
             }
 
-            imagem.setImageDrawable(drawable);
             textoResultado.setText(resultado);
 
         }catch (Exception e){
@@ -161,15 +198,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void jogarContra2(int par, int j){
+    private void jogarContra2(int par){
 
         try {
+            mudaImagem(mariazinhaImg, 6);
             resultado="";
+            int peso = 0;
 
             Random jogo = new Random();
             int chiquinho = jogo.nextInt(3);
             int mariazinha = jogo.nextInt(3);
-
 
             switch (par){
                 case 0:
@@ -179,19 +217,23 @@ public class MainActivity extends AppCompatActivity {
 
                             switch (mariazinha){
                                 case 0:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu pedra\nChiquinho escolheu pedra\nMariazinha escolheu pedra\nEmpate!";
+                                    mudaImagem(chiquinhoImg, 7);
+                                    mudaImagem(mariazinhaImg, 7);
+                                    mudaImagem(imagem, 4);
+                                    resultado = "Empate!";
                                     break;
                                 case 1:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu pedra\nChiquinho escolheu pedra\nMariazinha escolheu tesoura\nEmpate com o Chiquinho!";
+                                    mudaImagem(chiquinhoImg, 7);
+                                    mudaImagem(mariazinhaImg, 9);
+                                    mudaImagem(imagem, 4);
+                                    resultado = "Empate!";
                                     break;
                                 case 2:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu pedra\nChiquinho escolheu pedra\nMariazinha escolheu pedra!\nEmpate!";
+                                    mudaImagem(chiquinhoImg,7);
+                                    mudaImagem(mariazinhaImg, 8);
+                                    mudaImagem(imagem, 2);
+                                    //Mudar para Você perdeu
+                                    resultado = "Empate!";
                                     break;
                             }
 
@@ -201,19 +243,22 @@ public class MainActivity extends AppCompatActivity {
 
                             switch (mariazinha){
                                 case 0:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu pedra\nChiquinho escolheu tesoura\nMariazinha escolheu pedra\nEmpate com a Mariazinha!";
+                                    mudaImagem(chiquinhoImg, 9);
+                                    mudaImagem(mariazinhaImg, 7);
+                                    mudaImagem(imagem, 4);
+                                    resultado = "Empate!";
                                     break;
                                 case 1:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_feliz);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu pedra\nChiquinho escolheu tesoura\nMariazinha escolheu tesoura\nVocê venceu!";
+                                    mudaImagem(chiquinhoImg, 9);
+                                    mudaImagem(mariazinhaImg, 9);
+                                    mudaImagem(imagem, 1);
+                                    resultado = "Você venceu!";
                                     break;
                                 case 2:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu pedra\nChiquinho escolheu tesoura\nMariazinha escolheu papel\nEmpate!";
+                                    mudaImagem(chiquinhoImg, 9);
+                                    mudaImagem(mariazinhaImg, 8);
+                                    mudaImagem(imagem, 4);
+                                    resultado = "Empate!";
                                     break;
                             }
                             break;
@@ -222,19 +267,22 @@ public class MainActivity extends AppCompatActivity {
 
                             switch (mariazinha){
                                 case 0:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_bravo);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu pedra\nChiquinho escolheu papel\nMariazinha escolheu pedra\nVocê perdeu!";
+                                    mudaImagem(chiquinhoImg, 8);
+                                    mudaImagem(mariazinhaImg, 7);
+                                    mudaImagem(imagem, 2);
+                                    resultado = "Você perdeu!";
                                     break;
                                 case 1:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu pedra\nChiquinho escolheu papel\nMariazinha escolheu tesoura\nEmpate!";
+                                    mudaImagem(chiquinhoImg, 8);
+                                    mudaImagem(mariazinhaImg, 9);
+                                    mudaImagem(imagem, 4);
+                                    resultado = "Empate!";
                                     break;
                                 case 2:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_bravo);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu pedra\nChiquinho escolheu papel\nMariazinha escolheu papel\nVocê perdeu!";
+                                    mudaImagem(chiquinhoImg, 8);
+                                    mudaImagem(mariazinhaImg, 8);
+                                    mudaImagem(imagem, 2);
+                                    resultado = "Você perdeu!";
                                     break;
                             }
                             break;
@@ -250,19 +298,22 @@ public class MainActivity extends AppCompatActivity {
 
                             switch (mariazinha){
                                 case 0:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_bravo);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu tesoura\nChiquinho escolheu pedra\nMariazinha escolheu pedra\nVocê perdeu!";
+                                    mudaImagem(chiquinhoImg, 7);
+                                    mudaImagem(mariazinhaImg, 7);
+                                    mudaImagem(imagem,2);
+                                    resultado = "Você perdeu!";
                                     break;
                                 case 1:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_bravo);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu tesoura\nChiquinho escolheu pedra\nMariazinha escolheu tesoura\nVocê perdeu!";
+                                    mudaImagem(chiquinhoImg, 7);
+                                    mudaImagem(mariazinhaImg, 9);
+                                    mudaImagem(imagem,2);
+                                    resultado = "Você perdeu!";
                                     break;
                                 case 2:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu tesoura\nChiquinho escolheu pedra\nMariazinha escolheu papel\nEmpate!";
+                                    mudaImagem(chiquinhoImg, 7);
+                                    mudaImagem(mariazinhaImg, 9);
+                                    mudaImagem(imagem, 4);
+                                    resultado = "Empate!";
                                     break;
                             }
                             break;
@@ -270,19 +321,22 @@ public class MainActivity extends AppCompatActivity {
                         case 1:
                             switch (mariazinha){
                                 case 0:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_bravo);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu tesoura\nChiquinho escolheu tesoura\nMariazinha escolheu pedra\nVocê perdeu!";
+                                    mudaImagem(chiquinhoImg, 9);
+                                    mudaImagem(mariazinhaImg, 7);
+                                    mudaImagem(imagem, 2);
+                                    resultado = "Você perdeu!";
                                     break;
                                 case 1:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu tesoura\nChiquinho escolheu tesoura\nMariazinha escolheu tesoura\nEmpate!";
+                                    mudaImagem(chiquinhoImg, 9);
+                                    mudaImagem(mariazinhaImg, 9);
+                                    mudaImagem(imagem,4);
+                                    resultado = "Empate!";
                                     break;
                                 case 2:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu tesoura\nChiquinho escolheu tesoura\nMariazinha escolheu papel\nEmpate com o Chiquinho!";
+                                    mudaImagem(chiquinhoImg, 9);
+                                    mudaImagem(mariazinhaImg, 8);
+                                    mudaImagem(imagem, 4);
+                                    resultado = "Empate!";
                                     break;
                             }
                             break;
@@ -290,19 +344,22 @@ public class MainActivity extends AppCompatActivity {
                         case 2:
                             switch (mariazinha){
                                 case 0:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu tesoura\nChiquinho escolheu papel\nMariazinha escolheu pedra\nEmpate!";
+                                    mudaImagem(chiquinhoImg, 8);
+                                    mudaImagem(mariazinhaImg, 7);
+                                    mudaImagem(imagem, 4);
+                                    resultado = "Empate!";
                                     break;
                                 case 1:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu tesoura\nChiquinho escolheu papel\nMariazinha escolheu tesoura\nEmpate com a Mariazinha!";
+                                    mudaImagem(chiquinhoImg, 8);
+                                    mudaImagem(mariazinhaImg, 9);
+                                    mudaImagem(imagem, 4);
+                                    resultado = "Empate!";
                                     break;
                                 case 2:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_feliz);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu tesoura\nChiquinho escolheu papel\nMariazinha escolheu papel\nVocê venceu!";
+                                    mudaImagem(chiquinhoImg, 8);
+                                    mudaImagem(mariazinhaImg, 8);
+                                    mudaImagem(imagem, 1);
+                                    resultado = "Você venceu!";
                                     break;
                             }
                             break;
@@ -315,19 +372,22 @@ public class MainActivity extends AppCompatActivity {
 
                             switch (mariazinha){
                                 case 0:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_feliz);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu papel\nChiquinho escolheu pedra\nMariazinha escolheu pedra\nVocê venceu!";
+                                    mudaImagem(chiquinhoImg, 7);
+                                    mudaImagem(mariazinhaImg, 7);
+                                    mudaImagem(imagem, 1);
+                                    resultado = "Você venceu!";
                                     break;
                                 case 1:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu papel\nChiquinho escolheu pedra\nMariazinha escolheu tesoura\nEmpate";
+                                    mudaImagem(chiquinhoImg, 7);
+                                    mudaImagem(mariazinhaImg, 9);
+                                    mudaImagem(imagem, 4);
+                                    resultado = "Empate";
                                     break;
                                 case 2:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu papel\nChiquinho escolheu pedra\nMariazinha escolheu papel\nEmpate com a Chiquinha!";
+                                    mudaImagem(chiquinhoImg, 7);
+                                    mudaImagem(mariazinhaImg, 8);
+                                    mudaImagem(imagem, 4);
+                                    resultado = "Empate!";
                                     break;
                             }
                             break;
@@ -335,19 +395,22 @@ public class MainActivity extends AppCompatActivity {
 
                             switch (mariazinha){
                                 case 0:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu papel\nChiquinho escolheu tesoura\nMariazinha escolheu pedra\nEmpate!";
+                                    mudaImagem(chiquinhoImg, 9);
+                                    mudaImagem(mariazinhaImg, 7);
+                                    mudaImagem(imagem, 4);
+                                    resultado = "Empate!";
                                     break;
                                 case 1:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_bravo);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu papel\nChiquinho escolheu tesoura\nMariazinha escolheu tesoura\nVocê perdeu!";
+                                    mudaImagem(chiquinhoImg, 9);
+                                    mudaImagem(mariazinhaImg, 9);
+                                    mudaImagem(imagem, 2);
+                                    resultado = "Você perdeu!";
                                     break;
                                 case 2:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_bravo);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu papel\nChiquinho escolheu tesoura\nMariazinha escolheu papel\nVocê perdeu!";
+                                    mudaImagem(chiquinhoImg, 9);
+                                    mudaImagem(mariazinhaImg, 8);
+                                    mudaImagem(imagem, 2);
+                                    resultado = "Você perdeu!";
                                     break;
                             }
                             break;
@@ -356,19 +419,22 @@ public class MainActivity extends AppCompatActivity {
 
                             switch (mariazinha){
                                 case 0:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu papel\nChiquinho escolheu papel\nMariazinha escolheu pedra\nEmpate com o Chiquinho!";
+                                    mudaImagem(chiquinhoImg, 8);
+                                    mudaImagem(mariazinhaImg, 7);
+                                    mudaImagem(imagem, 4);
+                                    resultado = "Empate!";
                                     break;
                                 case 1:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu papel\nChiquinho escolheu papel\nMariazinha escolheu papel\nEmpate!";
+                                    mudaImagem(chiquinhoImg,8);
+                                    mudaImagem(mariazinhaImg, 8);
+                                    mudaImagem(imagem, 4);
+                                    resultado = "Empate!";
                                     break;
                                 case 2:
-                                    drawable = getResources().getDrawable(R.drawable.cave_man_empate);
-                                    imagem.setImageDrawable(drawable);
-                                    resultado+="Você escolheu papel\nChiquinho escolheu papel\nMariazinha escolheu papel\nEmpate!";
+                                    mudaImagem(chiquinhoImg, 8);
+                                    mudaImagem(mariazinhaImg, 8);
+                                    mudaImagem(imagem, 4);
+                                    resultado = "Empate!";
                                     break;
                             }
 
