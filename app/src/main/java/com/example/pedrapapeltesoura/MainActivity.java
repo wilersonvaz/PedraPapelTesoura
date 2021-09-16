@@ -1,15 +1,21 @@
 package com.example.pedrapapeltesoura;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -21,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private RadioButton idJogador, idJogador2;
     private int qtdJog = 1;
     private String resultado = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +98,28 @@ public class MainActivity extends AppCompatActivity {
                 textoResultado.setText("");
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_principal, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.main:
+                Intent main=new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(main);
+                return true;
+            case R.id.configuracoes:
+                Intent configuracoes=new Intent(getApplicationContext(),Configuracoes.class);
+                startActivity(configuracoes);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void mudaImagem(ImageView image, int img){

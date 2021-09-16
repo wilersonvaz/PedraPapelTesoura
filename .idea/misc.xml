@@ -4,9 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/circulo.xml" value="0.15677083333333333" />
+        <entry key="app/src/main/res/drawable/configuration.xml" value="0.18" />
         <entry key="app/src/main/res/drawable/img.xml" value="0.15677083333333333" />
         <entry key="app/src/main/res/drawable/redondo.xml" value="0.10520833333333333" />
+        <entry key="app/src/main/res/layout/activity_configuracoes.xml" value="0.16" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/menu/menu_principal.xml" value="0.22" />
       </map>
     </option>
   </component>
