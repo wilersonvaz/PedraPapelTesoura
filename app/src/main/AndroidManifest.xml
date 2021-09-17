@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PedraPapelTesoura">
         <activity
+            android:name=".JogarContraDois"
+            android:exported="true" />
+        <activity
+            android:name=".JogarContraUm"
+            android:exported="true" />
+        <activity
             android:name=".Configuracoes"
             android:exported="true" />
         <activity
